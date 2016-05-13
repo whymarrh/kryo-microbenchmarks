@@ -1,0 +1,33 @@
+plugins {
+    id 'me.champeau.gradle.jmh' version '0.3.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = '6.18'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.esotericsoftware:kryo:3.0.3'
+    testCompile 'junit:junit:4.12'
+}
+
+allprojects {
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << '-Xlint:unchecked' << '-Xdiags:verbose'
+        }
+    }
+}
+
+jmh {
+    fork = 1
+    warmupIterations = 5
+    iterations = 10
+}
