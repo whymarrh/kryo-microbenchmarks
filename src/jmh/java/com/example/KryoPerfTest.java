@@ -67,6 +67,22 @@ public class KryoPerfTest {
     @Benchmark
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
+    public final byte[] serializeAutoValueObject() {
+        final SixAxisValue obj = SixAxisValue.create(
+            name,
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random()
+        );
+        return serializer.serialize(obj);
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final Object serializeDeserializeMutableObject() {
         final SixAxisMutable obj = new SixAxisMutable();
         obj.name = name;
@@ -84,6 +100,22 @@ public class KryoPerfTest {
     @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final Object serializeDeserializeImmutableObject() {
         final SixAxis obj = new SixAxis(
+            name,
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random()
+        );
+        return serializer.deserialize(serializer.serialize(obj));
+    }
+
+    @Benchmark
+    @BenchmarkMode(Mode.AverageTime)
+    @OutputTimeUnit(TimeUnit.MICROSECONDS)
+    public final Object serializeDeserializeAutoValueObject() {
+        final SixAxisValue obj = SixAxisValue.create(
             name,
             (float) Math.random(),
             (float) Math.random(),
