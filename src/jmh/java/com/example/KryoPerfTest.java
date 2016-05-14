@@ -9,6 +9,8 @@ import org.openjdk.jmh.annotations.State;
 
 import java.util.concurrent.TimeUnit;
 
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
 @SuppressWarnings("unused")
 public class KryoPerfTest {
@@ -20,22 +22,16 @@ public class KryoPerfTest {
     private String name = "someone@microsoft.com";
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final void noop() {
         // ???
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final float random() {
         return (float) Math.random();
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final byte[] serializeMutableObject() {
         final SixAxisMutable obj = new SixAxisMutable();
         obj.name = name;
@@ -49,8 +45,6 @@ public class KryoPerfTest {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final byte[] serializeImmutableObject() {
         final SixAxis obj = new SixAxis(
             name,
@@ -65,8 +59,6 @@ public class KryoPerfTest {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final byte[] serializeAutoValueObject() {
         final SixAxisValue obj = SixAxisValue.create(
             name,
@@ -81,8 +73,6 @@ public class KryoPerfTest {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final Object serializeDeserializeMutableObject() {
         final SixAxisMutable obj = new SixAxisMutable();
         obj.name = name;
@@ -96,8 +86,6 @@ public class KryoPerfTest {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final Object serializeDeserializeImmutableObject() {
         final SixAxis obj = new SixAxis(
             name,
@@ -112,8 +100,6 @@ public class KryoPerfTest {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MICROSECONDS)
     public final Object serializeDeserializeAutoValueObject() {
         final SixAxisValue obj = SixAxisValue.create(
             name,
