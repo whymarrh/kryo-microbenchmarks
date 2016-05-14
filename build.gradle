@@ -33,6 +33,7 @@ jmh {
     fork = 5
     warmupIterations = 20
     iterations = 10
+    failOnError = true
     humanOutputFile = project.file("${project.buildDir}/reports/jmh/human.txt")
     resultsFile = project.file("${project.buildDir}/reports/jmh/results.txt")
 }
