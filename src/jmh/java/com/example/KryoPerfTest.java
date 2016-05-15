@@ -59,6 +59,19 @@ public class KryoPerfTest {
     }
 
     @Benchmark
+    public final byte[] serializeKotlinDataClass() {
+        return serializer.serialize(new SixAxisKt(
+            name,
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random()
+        ));
+    }
+
+    @Benchmark
     public final Object serializeDeserializeMutableObject() {
         final SixAxisMutable obj = new SixAxisMutable();
         obj.name = name;
@@ -83,5 +96,18 @@ public class KryoPerfTest {
             (float) Math.random()
         );
         return serializer.deserialize(serializer.serialize(obj));
+    }
+
+    @Benchmark
+    public final Object serializeDeserializeKotlinDataClass() {
+        return serializer.deserialize(serializer.serialize(new SixAxisKt(
+            name,
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random(),
+            (float) Math.random()
+        )));
     }
 }
